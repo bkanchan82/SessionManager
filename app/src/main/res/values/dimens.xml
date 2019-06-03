@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="default_top_morgin">16dp</dimen>
+    <dimen name="label_text_size">20sp</dimen>
+    <dimen name="layout_padding">32dp</dimen>
+</resources>
