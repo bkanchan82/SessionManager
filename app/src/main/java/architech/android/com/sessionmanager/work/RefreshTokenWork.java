@@ -1,11 +1,18 @@
 package architech.android.com.sessionmanager.work;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.work.Constraints;
+import androidx.work.NetworkType;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
+
+import java.util.concurrent.TimeUnit;
 
 import architech.android.com.sessionmanager.AppController;
 import architech.android.com.sessionmanager.R;
@@ -71,5 +78,29 @@ public class RefreshTokenWork extends Worker {
         });
         return Result.success();
     }
+
+    public static void initializeWork() {
+
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                Constraints constraints = new Constraints.Builder()
+                        .setRequiredNetworkType(NetworkType.CONNECTED)
+                        .build();
+
+                PeriodicWorkRequest saveRequest =
+                        new PeriodicWorkRequest.Builder(RefreshTokenWork.class, 15, TimeUnit.MINUTES)
+                                .setConstraints(constraints)
+                                .build();
+
+                WorkManager.getInstance()
+                        .enqueue(saveRequest);
+                return null;
+            }
+        }.execute();
+
+    }
+
 
 }
