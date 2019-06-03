@@ -4,6 +4,13 @@ import com.google.gson.annotations.SerializedName;
 
 public class LoginResponse {
 
+       /*{
+  "error_message": "",
+  "token": "ksnfsaklnclkznc",
+  "user_id": 1,
+  "status": 0
+}*/
+
     private String token;
     @SerializedName("user_id")
     private String userId;
@@ -27,10 +34,5 @@ public class LoginResponse {
         return status;
     }
 
-    /*{
-  "error_message": "User does not exist",
-  "token": "ksnfsaklnclkznc",
-  "user_id": 1,
-  "status": 101
-}*/
+
 }

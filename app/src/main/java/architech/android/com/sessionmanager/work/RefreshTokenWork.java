@@ -56,10 +56,12 @@ public class RefreshTokenWork extends Worker {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 LoginResponse loginResponse = response.body();
-                mPreferenceHelper.setSharedPreferenceString(
-                        AppController.getContext().getResources().getString(R.string.password_key),
-                        loginResponse.getToken()
-                );
+                if(loginResponse.getStatus() == 0) {
+                    mPreferenceHelper.setSharedPreferenceString(
+                            AppController.getContext().getResources().getString(R.string.password_key),
+                            loginResponse.getToken()
+                    );
+                }
             }
 
             @Override

@@ -6,7 +6,8 @@ import retrofit2.http.POST;
 
 public interface LoginApiService {
 
-    @POST("test/user")
+    //TODO change api path before testing
+    @POST("api/path")
     Call<LoginResponse> loginUser(@Body Credential user);
 
 }
