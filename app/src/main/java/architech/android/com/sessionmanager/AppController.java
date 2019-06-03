@@ -22,32 +22,7 @@ public class AppController extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = this;
-        initializeWork();
     }
-
-    private void initializeWork() {
-
-        new AsyncTask<Void, Void, Void>() {
-
-            @Override
-            protected Void doInBackground(Void... voids) {
-                Constraints constraints = new Constraints.Builder()
-                        .setRequiredNetworkType(NetworkType.CONNECTED)
-                        .build();
-
-                PeriodicWorkRequest saveRequest =
-                        new PeriodicWorkRequest.Builder(RefreshTokenWork.class, 15, TimeUnit.MINUTES)
-                                .setConstraints(constraints)
-                                .build();
-
-                WorkManager.getInstance()
-                        .enqueue(saveRequest);
-                return null;
-            }
-        }.execute();
-
-    }
-
     public static Context getContext() {
         return mContext;
     }

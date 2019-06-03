@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LoginNetworkDataSource {
 
     //TODO Change base url before testing
-    private static final String BASE_URL = "base_url_needs_to_be_here";
+    private static final String BASE_URL = "http://demo0724839.mockable.io/";
 
     private Gson gson = new GsonBuilder()
             .create();
