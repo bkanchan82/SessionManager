@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">SessionManager</string>
+
+    <!--Dashboard fragment string resources-->
+    <string name="dashboard_label">Dashboard</string>
+
+
+    <!--Login fragment string resources-->
+    <string name="email_label">Email</string>
+    <string name="password_label">Password</string>
+    <string name="login_button_lable">Login</string>
+
+    <!--Preference key string resources-->
+    <string name="jwt_key" translatable="false">json_web_token</string>
+    <string name="email_key" translatable="false">email_key</string>
+    <string name="password_key" translatable="false">password_key</string>
+    <string name="action_logout">Logout</string>
 </resources>
