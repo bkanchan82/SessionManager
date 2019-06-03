@@ -21,6 +21,7 @@ import architech.android.com.sessionmanager.idlingresource.SimpleIdlingResource;
 import architech.android.com.sessionmanager.model.network.Credential;
 import architech.android.com.sessionmanager.ui.dashboard.DashboardActivity;
 import architech.android.com.sessionmanager.utils.InjectorUtils;
+import architech.android.com.sessionmanager.work.RefreshTokenWork;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -42,11 +43,13 @@ public class LoginActivity extends AppCompatActivity {
         LoginViewModelFactory factory = new LoginViewModelFactory(InjectorUtils.sessionRepositoryProvider(this));
         mViewModel = ViewModelProviders.of(this, factory).get(LoginViewModel.class);
 
+        RefreshTokenWork.initializeWork();
 
         //Observe if user is logged in or not and navigate accordingly
         mViewModel.isLogin().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean isLogin) {
+                mBinding.loginBt.setEnabled(true);
                 if(isLogin){
                     navigateToDashboard();
                 }
@@ -57,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         mViewModel.getErrorMessage().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String errorMessage) {
+                mBinding.loginBt.setEnabled(true);
                 Toast.makeText(LoginActivity.this,errorMessage,Toast.LENGTH_SHORT).show();
             }
         });
@@ -68,8 +72,11 @@ public class LoginActivity extends AppCompatActivity {
                 String passwordString = mBinding.passwordEdt.getText().toString();
                 if(mViewModel.isValidEmail(emailString)
                         && mViewModel.isValidPassword(passwordString)){
+                    mBinding.loginBt.setEnabled(false);
                     Credential loginData = new Credential(emailString,passwordString);
                     mViewModel.requestLogin(loginData,mIdlingResource);
+                }else{
+                    Toast.makeText(LoginActivity.this,"Email or password is invalid",Toast.LENGTH_SHORT).show();
                 }
             }
         });
