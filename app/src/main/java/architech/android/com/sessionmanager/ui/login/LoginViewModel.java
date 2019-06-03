@@ -86,7 +86,7 @@ public class LoginViewModel extends ViewModel {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 LoginResponse loginResponse = response.body();
-                if(loginResponse.getStatus() == 101){
+                if(loginResponse.getStatus() == 0){
                     mSessionRepository.saveCredential(credential);
 
                     Log.d(LoginViewModel.class.getSimpleName(),"TOKEN "+loginResponse.getToken());
